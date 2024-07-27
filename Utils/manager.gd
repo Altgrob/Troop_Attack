@@ -1,3 +1,3 @@
 extends Node
 
-var units_to_instantiate :Array[String] = []
+var units_to_instantiate :Array = []
