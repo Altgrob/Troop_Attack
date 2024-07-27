@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgaaoumtkbfll"]
+
+[ext_resource type="PackedScene" uid="uid://deg8hyccmpkwv" path="res://Scenes/Actors/unit1.tscn" id="1_0k6jx"]
+[ext_resource type="Script" path="res://Scripts/Level.gd" id="1_xed1x"]
+[ext_resource type="Script" path="res://Scripts/KillBox.gd" id="3_76ifh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkvjx"]
+size = Vector2(626, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i7dkf"]
+size = Vector2(24, 32)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_xed1x")
+
+[node name="Unit1" parent="." instance=ExtResource("1_0k6jx")]
+position = Vector2(29, 231)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(308, 251)
+shape = SubResource("RectangleShape2D_mkvjx")
+
+[node name="KillBox" type="Area2D" parent="."]
+script = ExtResource("3_76ifh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
+position = Vector2(304, 222)
+shape = SubResource("RectangleShape2D_i7dkf")
+debug_color = Color(0.984314, 0, 0.34902, 0.419608)
+
+[connection signal="body_entered" from="KillBox" to="KillBox" method="_on_body_entered"]

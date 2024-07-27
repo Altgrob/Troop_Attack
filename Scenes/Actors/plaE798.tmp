@@ -1,0 +1,37 @@
+[gd_scene load_steps=9 format=3 uid="uid://deg8hyccmpkwv"]
+
+[ext_resource type="PackedScene" uid="uid://2q3eo00n50q8" path="res://Scenes/Actors/actor.tscn" id="1_avfdb"]
+[ext_resource type="Script" path="res://Scripts/Actors/Player/player.gd" id="2_q843b"]
+[ext_resource type="Texture2D" uid="uid://1muul0t1crmu" path="res://Assets/Player.png" id="2_urs55"]
+[ext_resource type="Script" path="res://Scripts/Actors/Player/PlayerStateIdle.gd" id="3_rhwko"]
+[ext_resource type="Script" path="res://Scripts/Actors/Player/PlayerStateMove.gd" id="4_lbslj"]
+[ext_resource type="Script" path="res://Scripts/Actors/Player/PlayerStateJump.gd" id="6_c4ua7"]
+[ext_resource type="Script" path="res://Utils/BaseState.gd" id="6_xxewx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78ebf"]
+size = Vector2(53, 94)
+
+[node name="Player" instance=ExtResource("1_avfdb")]
+script = ExtResource("2_q843b")
+jump_force = 300.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-1.5, -47)
+shape = SubResource("RectangleShape2D_78ebf")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(24.875, -54.7282)
+scale = Vector2(0.356544, 0.356544)
+texture = ExtResource("2_urs55")
+
+[node name="Idle" type="Node2D" parent="StateMachine" index="0"]
+script = ExtResource("3_rhwko")
+
+[node name="Walk" type="Node2D" parent="StateMachine" index="1"]
+script = ExtResource("4_lbslj")
+
+[node name="Jump" type="Node2D" parent="StateMachine" index="2"]
+script = ExtResource("6_c4ua7")
+
+[node name="Fall" type="Node2D" parent="StateMachine" index="3"]
+script = ExtResource("6_xxewx")

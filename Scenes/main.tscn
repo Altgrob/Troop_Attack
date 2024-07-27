@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgaaoumtkbfll"]
+
+[ext_resource type="PackedScene" uid="uid://deg8hyccmpkwv" path="res://Scenes/Actors/unit1.tscn" id="1_0k6jx"]
+[ext_resource type="Script" path="res://Scripts/Level.gd" id="1_xed1x"]
+[ext_resource type="Script" path="res://Scripts/KillBox.gd" id="3_76ifh"]
+[ext_resource type="Script" path="res://Scripts/UI/UI.gd" id="4_6h4bu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkvjx"]
+size = Vector2(626, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i7dkf"]
+size = Vector2(24, 32)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_xed1x")
+
+[node name="Unit1" parent="." instance=ExtResource("1_0k6jx")]
+position = Vector2(42, 119)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(308, 251)
+shape = SubResource("RectangleShape2D_mkvjx")
+
+[node name="KillBox" type="Area2D" parent="."]
+collision_layer = 2
+script = ExtResource("3_76ifh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
+position = Vector2(304, 222)
+shape = SubResource("RectangleShape2D_i7dkf")
+debug_color = Color(0.984314, 0, 0.34902, 0.419608)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+script = ExtResource("4_6h4bu")
+
+[node name="Retry" type="Button" parent="UI"]
+layout_mode = 2
+offset_left = 235.0
+offset_top = 81.0
+offset_right = 264.0
+offset_bottom = 95.0
+grow_horizontal = 2
+text = "Retry"
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(42, 199)
+
+[connection signal="body_entered" from="KillBox" to="KillBox" method="_on_body_entered"]
